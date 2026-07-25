@@ -114,7 +114,7 @@ export default function LiveCanvas() {
     let originY = 0;
 
     function handleMouseDown(o: fabric.IEvent) {
-      if (activeTool === "select" || o.e.altKey) return;
+      if (activeTool === "select" || (o.e as any).altKey) return;
       isDrawingRef.current = true;
       
       const pointer = canvas!.getPointer(o.e);
