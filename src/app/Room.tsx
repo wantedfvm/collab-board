@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 
 export function Room({ children }: { children: ReactNode }) {
-  const publicApiKey = process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY;
+  const publicApiKey = process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY || "pk_dev_UoFwPLCQydufRQ1KwEZ6eU1MtQVXr7Bvg4jErkQWskbiAdHAXhVXPDTqh4CYvjkh";
   const [roomId, setRoomId] = useState<string | null>(null);
 
   useEffect(() => {
