@@ -34,34 +34,37 @@ export default function LiveCanvas() {
     // Remove the hardcoded test rect, users will draw their own!
 
     // Handle Pan and Zoom
-    canvas.on("mouse:down", function (opt) {
+    canvas.on("mouse:down", (opt) => {
       const evt = opt.e;
+      const c = canvas as any;
       if (evt.altKey === true) {
-        this.isDragging = true;
-        this.selection = false;
-        this.lastPosX = evt.clientX;
-        this.lastPosY = evt.clientY;
+        c.isDragging = true;
+        c.selection = false;
+        c.lastPosX = evt.clientX;
+        c.lastPosY = evt.clientY;
       }
     });
 
-    canvas.on("mouse:move", function (opt) {
-      if (this.isDragging) {
+    canvas.on("mouse:move", (opt) => {
+      const c = canvas as any;
+      if (c.isDragging) {
         const e = opt.e;
-        const vpt = this.viewportTransform;
+        const vpt = canvas.viewportTransform;
         if (vpt) {
-          vpt[4] += e.clientX - this.lastPosX;
-          vpt[5] += e.clientY - this.lastPosY;
-          this.requestRenderAll();
-          this.lastPosX = e.clientX;
-          this.lastPosY = e.clientY;
+          vpt[4] += e.clientX - c.lastPosX;
+          vpt[5] += e.clientY - c.lastPosY;
+          canvas.requestRenderAll();
+          c.lastPosX = e.clientX;
+          c.lastPosY = e.clientY;
         }
       }
     });
 
-    canvas.on("mouse:up", function (opt) {
-      this.setViewportTransform(this.viewportTransform!);
-      this.isDragging = false;
-      this.selection = true;
+    canvas.on("mouse:up", () => {
+      const c = canvas as any;
+      canvas.setViewportTransform(canvas.viewportTransform!);
+      c.isDragging = false;
+      canvas.selection = true;
     });
 
     // Allow zooming with mouse wheel
